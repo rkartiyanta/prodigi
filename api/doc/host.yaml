@@ -188,6 +188,28 @@ paths:
             application/json:
               schema:
                 $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+  '/api/v1/product/wishlist':
+    get:
+      summary: Most Wishlist
+      operationId: get-product-wishlist
+      description: Get most wishlisted product.
+      tags:
+        - Product
+      security:
+        - AdminRole: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/product/ViewMostWishlistResponse.v1.yaml
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
   '/api/v1/wishlist':
     get:
       summary: List
