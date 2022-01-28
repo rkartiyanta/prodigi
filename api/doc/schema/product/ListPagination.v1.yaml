@@ -1,0 +1,36 @@
+title: ListPagination
+type: object
+description: List pagination model
+properties:
+  page:
+    type: integer
+    description: Page index
+    example: 1
+  perpage:
+    type: integer
+    description: Total item per page
+    example: 20
+  total:
+    type: integer
+    description: Total item found
+    example: 100
+  name:
+    type: string
+    description: Product's name seach key
+    example:  Mac
+  brand:
+    type: string
+    description: Product's brand seach key
+    example:  apple
+  type:
+    type: string
+    description: Product's type seach key
+    example:  laptop
+  price:
+    type: integer
+    description: Product's price seach key
+    example:  10000
+  discount:
+    type: integer
+    description: Product's discount seach key
+    example:  10

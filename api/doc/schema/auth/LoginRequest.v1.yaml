@@ -1,0 +1,15 @@
+title: LoginRequest
+type: object
+description: Login response model
+properties:
+  email:
+    type: string
+    description: Account's email
+    example: user@example.com
+  password:
+    type: string
+    description: Account's password
+    example: password
+required:
+- email
+- password

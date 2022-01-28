@@ -1,0 +1,10 @@
+title: DeleteRequest
+type: object
+description: Delete wishlist request model
+properties:
+  product_id:
+    type: integer
+    description: Product's id
+    example:  1
+required:
+- product_id

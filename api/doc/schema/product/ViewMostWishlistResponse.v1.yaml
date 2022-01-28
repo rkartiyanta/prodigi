@@ -1,0 +1,53 @@
+title: ViewResponse
+type: object
+description: View product response model
+properties:
+  id:
+    type: integer
+    description: Product's id
+    example: 1
+  name:
+    type: string
+    description: Product's title
+    example:  Macbook Pro M1
+  description:
+    type: string
+    description: Product's description
+    example:  Macbook Pro M1 - 2021
+  brand:
+    type: string
+    description: Product's brand
+    example:  apple
+  type:
+    type: string
+    description: Product's type
+    example:  laptop
+  price:
+    type: integer
+    description: Product's price
+    example:  10000
+  discount:
+    type: integer
+    description: Product's discount
+    example:  10
+  total_view:
+    type: integer
+    description: Product's total view
+    example:  10
+  total_wishlist:
+    type: integer
+    description: Product's total wishlist
+    example:  10
+  image_url:
+    type: array
+    description: Product's image urls
+    items:
+      type: string
+    example:
+      - example.com/product/1.jpg
+      - example.com/product/2.jpg
+      - example.com/product/3.jpg
+  created_at:
+    type: string
+    description: Product's created date
+    format: date-time

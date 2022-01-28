@@ -1,0 +1,30 @@
+title: RegisterRequest
+type: object
+description: Register account model
+properties:
+  name:
+    type: string
+    description: Account's fullname
+    example: Richard
+  email:
+    type: string
+    description: Account's email
+    example: user@example.com
+  password:
+    type: string
+    description: Account's password
+    example: password
+  confirm_password:
+    type: string
+    description: Confirm password
+    example: password
+  role:
+    type: string
+    description: Account's role
+    example: ADMIN
+required:
+- name
+- email
+- password
+- confirm_password
+- role

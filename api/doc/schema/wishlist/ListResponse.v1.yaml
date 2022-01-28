@@ -1,0 +1,9 @@
+title: ListResponse
+type: object
+description: List wishlist response model
+properties:
+  data:
+    type: array
+    description: List of quiz model
+    items:
+      $ref: ../product/ViewResponse.v1.yaml

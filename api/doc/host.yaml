@@ -1,0 +1,320 @@
+openapi: 3.0.0
+info:
+  title: Prodigi Application REST API Documentation.
+  version: '1.0'
+  description: REST API documentation for Prodigi.
+  license:
+    name: Proprietary
+  contact:
+    name: Prodigi
+    url: '#'
+servers:
+  - url: '#'
+    description: Staging API Gateway
+  - url: '#'
+    description: Production API Gateway
+tags:
+  - name: Auth
+    description: Related to AUTH perspective.
+  - name: Product
+    description: Related to PRODUCT perspective.
+  - name: Wishlist
+    description: Related to WISHLIST perspective.
+paths:
+  '/api/v1/auth/login':
+    post:
+      summary: Login
+      description: Authenticate account and obtain token for further internal request.
+      operationId: post-auth-login
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schema/auth/LoginRequest.v1.yaml
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/auth/LoginResponse.v1.yaml
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+  '/api/v1/auth/register':
+    post:
+      summary: Register
+      description: Register a new account.
+      operationId: post-auth-register
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schema/auth/RegisterRequest.v1.yaml
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+  '/api/v1/product':
+    get:
+      summary: List
+      operationId: get-product-list
+      description: Get product list.
+      tags:
+        - Product
+      parameters:
+        - $ref: '#/components/parameters/PaginationPage'
+        - $ref: '#/components/parameters/PaginationLimit'
+        - $ref: '#/components/parameters/ProductName'
+        - $ref: '#/components/parameters/ProductBrand'
+        - $ref: '#/components/parameters/ProductType'
+        - $ref: '#/components/parameters/ProductPrice'
+        - $ref: '#/components/parameters/ProductDiscount'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/product/ListResponse.v1.yaml
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+    post:
+      summary: Create
+      operationId: post-product-list
+      description: Create a new product.
+      tags:
+        - Product
+      security:
+        - AdminRole: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schema/product/CreateRequest.v1.yaml
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+  '/api/v1/product/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: 'Product ID'
+    get:
+      summary: View
+      operationId: get-product-id
+      description: Get product detail.
+      tags:
+        - Product
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/product/ViewResponse.v1.yaml
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+    patch:
+      summary: Update
+      operationId: patch-product
+      description: Update product's detail.
+      tags:
+        - Product
+      security:
+        - AdminRole: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schema/product/UpdateRequest.v1.yaml
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+  '/api/v1/product/view':
+    get:
+      summary: Most View
+      operationId: get-product-view
+      description: Get most view product.
+      tags:
+        - Product
+      security:
+        - AdminRole: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/product/ViewResponse.v1.yaml
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+  '/api/v1/wishlist':
+    get:
+      summary: List
+      operationId: get-wishlist-list
+      description: Get wishlist of an account.
+      tags:
+        - Wishlist
+      security:
+        - AccountID: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/wishlist/ListResponse.v1.yaml
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+    post:
+      summary: Create
+      operationId: post-wishlist
+      description: Create a new wishlist.
+      tags:
+        - Wishlist
+      security:
+        - AccountID: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schema/wishlist/CreateRequest.v1.yaml
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+    delete:
+      summary: Delete
+      operationId: delete-wishlist
+      description: Delete a new wishlist.
+      tags:
+        - Wishlist
+      security:
+        - AccountID: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schema/wishlist/DeleteRequest.v1.yaml
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./schema/common/DefaultErrorMessage.v1.yaml
+components:
+  parameters:
+    PaginationPage:
+      in: query
+      name: page
+      description: Requested page
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PaginationLimit:
+      in: query
+      name: perpage
+      description: Requested item per page
+      required: false
+      schema:
+        type: integer
+        maximum: 100
+        default: 20
+    ProductName:
+      in: query
+      name: name
+      description: Product's name search keyword
+      required: false
+      schema:
+        type: string
+    ProductBrand:
+      in: query
+      name: brand
+      description: Product's brand search keyword
+      required: false
+      schema:
+        type: string
+    ProductType:
+      in: query
+      name: type
+      description: Product's type search keyword
+      required: false
+      schema:
+        type: string
+    ProductPrice:
+      in: query
+      name: price
+      description: Product's price search keyword
+      required: false
+      schema:
+        type: integer
+    ProductDiscount:
+      in: query
+      name: discount
+      description: Product's discount search keyword
+      required: false
+      schema:
+        type: integer
+  securitySchemes:
+    AdminRole:
+      type: http
+      scheme: header
+      description: 'A admin role which is obtained from successful [login](#operation/post-auth-login)'
+    AccountID:
+      type: http
+      scheme: header
+      description: 'A account id which is obtained from successful [login](#operation/post-auth-login)'

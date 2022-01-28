@@ -1,0 +1,12 @@
+title: LoginResponse
+type: object
+description: Login response model
+properties:
+  id:
+    type: int
+    description: Account's id
+    example: 1
+  role:
+    type: string
+    description: Account's role
+    example: ADMIN

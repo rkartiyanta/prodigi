@@ -1,0 +1,8 @@
+title: DefaultErrorMessage
+type: object
+description: Default error message model
+properties:
+  error:
+    type: string
+    description: Error message
+    example: Error

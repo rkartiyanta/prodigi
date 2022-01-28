@@ -1,0 +1,11 @@
+title: ListResponse
+type: object
+description: List product response model
+properties:
+  pagination:
+    $ref: ./ListPagination.v1.yaml
+  data:
+    type: array
+    description: List of quiz model
+    items:
+      $ref: ./ViewResponse.v1.yaml
