@@ -10,17 +10,29 @@ export const getMostWishlistProduct = async (req, res) => {
             return
         }
 
-        const wishlist = await Wishlist.findOne({
+        Product.belongsTo(Wishlist, { foreignKey: 'id' })
+
+        Product.findAll({
+            include: [{
+                model: Wishlist,
+                on: {
+                    col1: db.where(db.col("product.id"), "=", db.col("wishlist.product_id"))
+                },
+                attributes: [],
+                required: true
+            }],
+            group: ['product.id'],
             attributes: [
-                'product_id',
-                [db.fn('COUNT', db.col('product_id')), 'count']
+                'id', 'name', 'description', 'brand', 'type',
+                'price', 'discount', 'image_url', 'total_view', 'created_at',
+                [db.fn('COUNT', db.col('id')), 'total_wishlist']
             ],
-            group: 'product_id',
             order: [
-                [db.fn('COUNT', db.col('product_id')), 'DESC'],
+                [db.fn('COUNT', db.col('id')), 'DESC'],
             ]
+        }).then(function (products) {
+            res.json(products[0]);
         });
-        res.json(wishlist);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
